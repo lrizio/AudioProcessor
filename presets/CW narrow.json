@@ -1,0 +1,7 @@
+{
+  "blocks": [
+    {"type": "CwPeak", "enabled": true, "params": {"center": 700, "width": 150}},
+    {"type": "LmsNr", "enabled": true, "params": {"length": 4, "delay": 1, "speed": 0.02, "leak": 5, "mix": 100}},
+    {"type": "Agc", "enabled": true, "params": {"target": -12, "max_gain": 30, "attack": 5, "release": 300}}
+  ]
+}

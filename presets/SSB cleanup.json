@@ -1,0 +1,8 @@
+{
+  "blocks": [
+    {"type": "BandFilter", "enabled": true, "params": {"mode": "Band-pass", "low": 300, "high": 2700, "order": 4}},
+    {"type": "AutoNotch", "enabled": true, "params": {"length": 4, "delay": 4, "speed": 0.02}},
+    {"type": "SpectralNr", "enabled": true, "params": {"strength": 1.0, "floor": 15}},
+    {"type": "Agc", "enabled": true, "params": {"target": -12, "max_gain": 30, "attack": 5, "release": 500}}
+  ]
+}

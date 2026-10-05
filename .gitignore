@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+venv/
+.venv/
+settings.json
+recordings/*.wav
+.pyinstaller_work/
+scripts/icon_preview.png
+build/settings.json
+build/recordings/
+build/presets/
+build/blocks/
