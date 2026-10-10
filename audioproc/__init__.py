@@ -5,7 +5,7 @@ from __future__ import annotations
 import sys
 from pathlib import Path
 
-__version__ = "1.0"
+__version__ = "1.1"
 
 # Folder holding presets/, recordings/, settings.json and the user blocks/
 # folder -- beside the .exe when frozen, the project root otherwise.

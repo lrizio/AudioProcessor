@@ -14,7 +14,7 @@ adjusted.
     python run.py
 
 Requires Python 3 with the packages in `requirements.txt`. Or skip Python: download
-`AudioProcessor-1.0-windows.zip` from the [latest release](https://github.com/lrizio/AudioProcessor/releases/latest),
+`AudioProcessor-1.1-windows.zip` from the [latest release](https://github.com/lrizio/AudioProcessor/releases/latest),
 unzip it anywhere and run `Audio_Processor.exe` (not code-signed, so Windows SmartScreen may warn: *More info*, then
 *Run anyway*).
 

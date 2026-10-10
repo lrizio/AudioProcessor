@@ -156,18 +156,27 @@ QScrollArea, QScrollArea > QWidget > QWidget {
     border: none;
 }
 QScrollBar:vertical {
-    background: #101316;
-    width: 12px;
-    border-radius: 6px;
+    background: #2a2f35;
+    width: 18px;
+    margin: 0;
+    border-left: 1px solid #6cb6ff;
 }
 QScrollBar::handle:vertical {
     background: qlineargradient(x1:0, y1:0, x2:1, y2:0,
-        stop:0 #4a4d51, stop:1 #34373b);
-    border-radius: 6px;
-    min-height: 24px;
+        stop:0 #9fd4f0, stop:1 #4f9fd0);
+    border: 2px solid #e8edf2;
+    border-radius: 7px;
+    min-height: 40px;
+    margin: 1px;
+}
+QScrollBar::handle:vertical:hover {
+    background: #c4e6f8;
 }
 QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical {
     height: 0;
+}
+QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
+    background: transparent;
 }
 
 QLabel {
@@ -184,18 +193,27 @@ QDoubleSpinBox {
     color: #9fd4f0;
 }
 QScrollBar:horizontal {
-    background: #101316;
-    height: 12px;
-    border-radius: 6px;
+    background: #2a2f35;
+    height: 18px;
+    margin: 0;
+    border-top: 1px solid #6cb6ff;
 }
 QScrollBar::handle:horizontal {
     background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
-        stop:0 #4a4d51, stop:1 #34373b);
-    border-radius: 6px;
-    min-width: 24px;
+        stop:0 #9fd4f0, stop:1 #4f9fd0);
+    border: 2px solid #e8edf2;
+    border-radius: 7px;
+    min-width: 40px;
+    margin: 1px;
+}
+QScrollBar::handle:horizontal:hover {
+    background: #c4e6f8;
 }
 QScrollBar::add-line:horizontal, QScrollBar::sub-line:horizontal {
     width: 0;
+}
+QScrollBar::add-page:horizontal, QScrollBar::sub-page:horizontal {
+    background: transparent;
 }
 QMenu {
     background: #22262a;
