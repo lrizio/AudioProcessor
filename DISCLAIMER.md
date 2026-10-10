@@ -50,8 +50,11 @@ are used only to identify the hardware or software they refer to.
 
 ## Network use and privacy
 
-* Audio Processor does not collect telemetry, analytics or personal data, has no server of its own, and
-  makes **no network connections at all**. The author receives nothing from your copy of the program.
+* Audio Processor does not collect telemetry, analytics or personal data and has no server of its own.
+  Its only network use is an optional update check: shortly after it starts it makes one small request to
+  GitHub's public "latest release" record for this project (GitHub sees your IP address, as for any web
+  request) and shows a notice if a newer version exists. Nothing is downloaded or installed. Untick
+  **Check for updates** in the program to turn it off. The author receives nothing from your copy.
 * Audio is processed on your PC and never leaves it. Settings, presets and recordings are stored in the
   folder beside the program.
 

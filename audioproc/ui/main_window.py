@@ -6,7 +6,8 @@ import time
 from pathlib import Path
 
 import numpy as np
-from PySide6.QtCore import Qt, QTimer
+from PySide6.QtCore import Qt, QTimer, QUrl
+from PySide6.QtGui import QDesktopServices
 from PySide6.QtWidgets import (
     QCheckBox, QComboBox, QFileDialog, QGroupBox, QHBoxLayout, QInputDialog,
     QLabel, QMainWindow, QMenu, QMessageBox, QPushButton,
@@ -16,6 +17,7 @@ from scipy.io import wavfile
 
 from .. import APP_DIR, __version__
 from .. import engine as eng
+from ..updatecheck import PAGE_URL, UpdateChecker
 from ..chain import Chain, render_offline
 from ..registry import by_category, discover
 from .block_panel import BlockPanel
@@ -90,6 +92,11 @@ class MainWindow(QMainWindow):
         self._load_settings()
         self._refresh_presets()
         self._update_buttons()
+        self._update_url = PAGE_URL
+        self.updater = UpdateChecker(__version__, self)
+        self.updater.found.connect(self._update_found)
+        if self.upd_chk.isChecked():                 # one quiet look at GitHub a few seconds after start
+            QTimer.singleShot(4000, self.updater.start)
 
         self.timer = QTimer(self)
         self.timer.timeout.connect(self._tick)
@@ -130,6 +137,17 @@ class MainWindow(QMainWindow):
         self.start_btn.setFixedWidth(110)
         self.start_btn.clicked.connect(self._toggle_engine)
         h.addWidget(self.start_btn)
+        self.update_btn = QPushButton("")
+        self.update_btn.setStyleSheet("color: #ffbf5f; font-weight: 700;")
+        self.update_btn.setCursor(Qt.PointingHandCursor)
+        self.update_btn.clicked.connect(lambda: QDesktopServices.openUrl(QUrl(self._update_url)))
+        self.update_btn.hide()
+        h.addWidget(self.update_btn)
+        self.upd_chk = QCheckBox("Check for updates")
+        self.upd_chk.setChecked(True)
+        self.upd_chk.setToolTip("When the program starts, look on GitHub for a newer release (one small request; "
+                                "nothing is downloaded). Takes effect at the next start.")
+        h.addWidget(self.upd_chk)
         wasapi = self.api_combo.findText("WASAPI")
         self.api_combo.setCurrentIndex(max(wasapi, 0))
         return box
@@ -645,6 +663,12 @@ class MainWindow(QMainWindow):
         else:
             self.clip_bar.set(0.0)
 
+    def _update_found(self, version: str, url: str) -> None:
+        self._update_url = url
+        self.update_btn.setText(f"UPDATE v{version} AVAILABLE")
+        self.update_btn.setToolTip("A newer Audio Processor is on GitHub. Click to open the download page.")
+        self.update_btn.show()
+
     # ================= settings =================
     def _load_settings(self) -> None:
         try:
@@ -668,6 +692,7 @@ class MainWindow(QMainWindow):
         if rate >= 0:
             self.rate_combo.setCurrentIndex(rate)
         self.vol.setValue(int(s.get("volume", 70)))
+        self.upd_chk.setChecked(bool(s.get("check_updates", True)))
         self.chain.set_fs(self.rate_combo.currentData())
         self.spectrum.set_fs(self.rate_combo.currentData())
         self._apply_chain(s.get("chain", {}))
@@ -679,6 +704,7 @@ class MainWindow(QMainWindow):
             "output": self.out_combo.currentText(),
             "rate": self.rate_combo.currentData(),
             "volume": self.vol.value(),
+            "check_updates": self.upd_chk.isChecked(),
             "chain": self.chain.to_dict(),
         }
         try:
